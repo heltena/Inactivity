@@ -4,7 +4,7 @@ I needed to detect idle mode on a SwiftUI app for a kiosk, so I did it.
 
 ## Usage
 
-> **Important:** You must set the `Principal class` of your app to `$(PRODUCT_MODULE_NAME).InactivityApplication` in your info.plist.
+> **Important:** You must set the `Principal class` of your app to `Inactivity.InactivityApplication` in your info.plist.
 
 This is an example:
 
