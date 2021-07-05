@@ -17,15 +17,7 @@ public class InactivityWatcher: ObservableObject {
     #if DEBUG
     static let debug = InactivityWatcher()
     #endif
-    
-    static var shared: InactivityWatcher {
-        #if DEBUG
-        InactivityWatcher.debug
-        #else
-            InactivityApplication.shared.watcher
-        #endif
-    }
-    
+
     public func startWatch(timeout: TimeInterval) {
         timer?.cancel()
         if self.stateChanged != .active {

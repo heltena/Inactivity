@@ -26,26 +26,10 @@ public struct InactivityWatcherView<InactiveView, ActiveView>: View where Inacti
             case .active: activeView
             }
         }
-        .onReceive(InactivityWatcher.shared.$stateChanged) { newState in
+        .onReceive(InactivityApplication.shared.watcher.$stateChanged) { newState in
             withAnimation {
                 self.state = newState
             }
-        }
-    }
-}
-
-struct InactivityWatcherView_Previews: PreviewProvider {
-    static var previews: some View {
-        InactivityWatcherView { proxy in
-            Button {
-                proxy.becomeActive(timeout: 5)
-            } label: {
-                Text("Become Active!")
-            }
-            .transition(.opacity)
-            
-            Text("Active")
-                .transition(.opacity)
         }
     }
 }
