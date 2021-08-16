@@ -35,6 +35,14 @@ public class InactivityWatcher: ObservableObject {
             }
     }
 
+    public func inactivate() {
+        if self.stateChanged != .inactive {
+            self.stateChanged = .inactive
+        }
+        self.lastTimeout = nil
+        self.timer?.cancel()
+    }
+
     public func sendEvent() {
         if self.stateChanged == .active, let lastTimeout = self.lastTimeout {
             startWatch(timeout: lastTimeout)
