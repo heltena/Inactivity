@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class InactivityApplication: UIApplication {
+open class InactivityApplication: UIApplication {
     public let watcher = InactivityWatcher()
     
     public static override var shared: InactivityApplication {
