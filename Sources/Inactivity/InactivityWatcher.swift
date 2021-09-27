@@ -18,6 +18,9 @@ public class InactivityWatcher: ObservableObject {
     static let debug = InactivityWatcher()
     #endif
 
+    public init() {
+    }
+    
     public func startWatch(timeout: TimeInterval) {
         timer?.cancel()
         if self.stateChanged != .active {
