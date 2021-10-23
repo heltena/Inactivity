@@ -4,11 +4,7 @@ I needed to detect idle mode on a SwiftUI app for a kiosk, so I did it.
 
 ## Usage
 
-> **Note:** The `Principal class` is not necessary if using SwiftUI life cycle.
->           There is no improvement from the previous version.
-
-> **Important:** In previous iOS version (&lt; 15), you must set the `Principal class` 
->                of your app to `Inactivity.InactivityApplication` in your info.plist.
+> **Note:** The `Principal class` is not necessary.
 
 This is an example:
 
