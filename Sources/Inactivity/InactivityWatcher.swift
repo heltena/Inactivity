@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import UIKit
 
 public class InactivityWatcher: ObservableObject {
     @Published public private(set) var stateChanged: InactivityState = .inactive
@@ -14,11 +15,14 @@ public class InactivityWatcher: ObservableObject {
     private var timer: AnyCancellable?
     private var lastTimeout: TimeInterval?
 
-    #if DEBUG
-    static let debug = InactivityWatcher()
-    #endif
+    static let shared = InactivityWatcher()
 
-    public init() {
+    private init() {
+        let uiAppClass = UIApplication.self
+        let currentSendEvent = class_getInstanceMethod(uiAppClass, #selector(uiAppClass.sendEvent))
+        let newSendEvent = class_getInstanceMethod(uiAppClass, #selector(uiAppClass.newSendEvent))
+        method_exchangeImplementations(currentSendEvent!, newSendEvent!)
+        print("sendEvent Swizzled")
     }
     
     public func startWatch(timeout: TimeInterval) {

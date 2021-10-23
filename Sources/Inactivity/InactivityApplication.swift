@@ -7,15 +7,11 @@
 
 import UIKit
 
-open class InactivityApplication: UIApplication {
-    public let watcher = InactivityWatcher()
-    
-    public static override var shared: InactivityApplication {
-        UIApplication.shared as! InactivityApplication
+extension UIApplication {
+
+    @objc dynamic func newSendEvent(_ event: UIEvent) {
+        newSendEvent(event)
+        InactivityWatcher.shared.sendEvent()
     }
-    
-    public override func sendEvent(_ event: UIEvent) {
-        watcher.sendEvent()
-        super.sendEvent(event)
-    }
+
 }

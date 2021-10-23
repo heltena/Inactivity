@@ -26,7 +26,7 @@ public struct InactivityWatcherView<InactiveView, ActiveView>: View where Inacti
             case .active: activeView
             }
         }
-        .onReceive(InactivityApplication.shared.watcher.$stateChanged) { newState in
+        .onReceive(InactivityWatcher.shared.$stateChanged) { newState in
             withAnimation {
                 self.state = newState
             }

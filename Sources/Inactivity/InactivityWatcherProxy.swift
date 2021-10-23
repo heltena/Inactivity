@@ -9,10 +9,10 @@ import Foundation
 
 public struct InactivityWatcherProxy {
     public func becomeInactive() {
-        InactivityApplication.shared.watcher.inactivate()
+        InactivityWatcher.shared.inactivate()
     }
     
     public func becomeActive(timeout: TimeInterval) {
-        InactivityApplication.shared.watcher.startWatch(timeout: timeout)
+        InactivityWatcher.shared.startWatch(timeout: timeout)
     }
 }
