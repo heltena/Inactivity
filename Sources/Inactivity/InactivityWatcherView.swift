@@ -27,8 +27,10 @@ public struct InactivityWatcherView<InactiveView, ActiveView>: View where Inacti
             }
         }
         .onReceive(InactivityWatcher.shared.$stateChanged) { newState in
-            withAnimation {
-                self.state = newState
+            DispatchQueue.main.async {
+                withAnimation {
+                    self.state = newState
+                }
             }
         }
     }
