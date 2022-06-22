@@ -33,4 +33,6 @@ Finally, it is possible to access to the `InactivityWatcher` class using the `sh
 InactivityApplication.shared.watcher.startWatch(timeout: 120)
 ```
 
+Find an Xcode app example here: https://github.com/heltena/InactivityExample
+
 Enjoy!
