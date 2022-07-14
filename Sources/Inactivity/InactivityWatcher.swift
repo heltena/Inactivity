@@ -15,7 +15,7 @@ public class InactivityWatcher: ObservableObject {
     private var timer: AnyCancellable?
     private var lastTimeout: TimeInterval?
 
-    static let shared = InactivityWatcher()
+    public static let shared = InactivityWatcher()
 
     private init() {
         let uiAppClass = UIApplication.self
