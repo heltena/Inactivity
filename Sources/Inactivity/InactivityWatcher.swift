@@ -14,7 +14,7 @@ public class InactivityWatcher: ObservableObject {
 
     private var timer: AnyCancellable?
     private var lastTimeout: TimeInterval?
-
+    private var triggerType: InactivityTriggerType = .manual
     public static let shared = InactivityWatcher()
 
     private init() {
@@ -34,11 +34,7 @@ public class InactivityWatcher: ObservableObject {
         timer = Timer.publish(every: timeout, on: .main, in: .default)
             .autoconnect()
             .sink { _ in
-                if self.stateChanged != .inactive {
-                    self.stateChanged = .inactive
-                }
-                self.lastTimeout = nil
-                self.timer?.cancel()
+                self.inactivate()
             }
     }
 
@@ -46,7 +42,6 @@ public class InactivityWatcher: ObservableObject {
         if self.stateChanged != .inactive {
             self.stateChanged = .inactive
         }
-        self.lastTimeout = nil
         self.timer?.cancel()
     }
 
@@ -58,11 +53,23 @@ public class InactivityWatcher: ObservableObject {
                 if let lastTimeout = self.lastTimeout {
                     startWatch(timeout: lastTimeout)
                 }
-            // Handle case where the user was inactive and new activity has been received by sendEvent. This means the user
-            //  is now active and we must change the state from inactive to active
+            // Handle case where the user was inactive and new activity has been received by sendEvent.
             case .inactive:
-                self.stateChanged = .active
-        }
+                // It the trigger type is autuomatic, then this means the user is now active and
+                // we must change the state from inactive to active
+                if triggerType == .automatic {
+                        self.stateChanged = .active
+                }
+         }
+    }
+    
+    /**
+     Sets the trigger type
+     
+     Use this to change the trigger type from the default of .manual
+     */
+    public static func setTriggerType(triggerType : InactivityTriggerType) {
+        self.shared.triggerType = triggerType
     }
 }
 
