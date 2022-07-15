@@ -51,8 +51,17 @@ public class InactivityWatcher: ObservableObject {
     }
 
     public func sendEvent() {
-        if self.stateChanged == .active, let lastTimeout = self.lastTimeout {
-            startWatch(timeout: lastTimeout)
+        
+        switch stateChanged {
+            // Handle case where user is already active when new activity is received by sendEvent
+            case .active:
+                if let lastTimeout = self.lastTimeout {
+                    startWatch(timeout: lastTimeout)
+                }
+            // Handle case where the user was inactive and new activity has been received by sendEvent. This means the user
+            //  is now active and we must change the state from inactive to active
+            case .inactive:
+                self.stateChanged = .active
         }
     }
 }
